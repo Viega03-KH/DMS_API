@@ -1,0 +1,29 @@
+<VirtualHost *:2020>
+    DocumentRoot /app_and_apps/services-admin/apps
+
+    # STATIC fayllar
+    Alias /static /app_and_apps/services-admin/apps/static-files
+    <Directory /app_and_apps/services-admin/apps/static-files>
+        Require all granted
+    </Directory>
+
+    # MEDIA fayllar
+    Alias /media /app_and_apps/services-admin/apps/media
+    <Directory /app_and_apps/services-admin/apps/media>
+        Require all granted
+    </Directory>
+
+    # WSGI konfiguratsiyasi
+    <Directory /app_and_apps/services-admin/apps/config>
+        <Files wsgi.py>
+            Require all granted
+        </Files>
+    </Directory>
+
+    <Directory /app_and_apps/services-admin/apps>
+        Require all granted
+    </Directory>
+
+    WSGIDaemonProcess services-admin python-home=/app_and_apps/services-admin/venv python-path=/app_and_apps/services-admin/>    WSGIProcessGroup services-admin
+    WSGIScriptAlias / /app_and_apps/services-admin/apps/config/wsgi.py
+</VirtualHost> confni mening dms_api ga mosla
