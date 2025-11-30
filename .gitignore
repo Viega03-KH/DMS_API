@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+ENV/
+*.venv
+
+# Django
+*.log
+*.pot
+*.pyc
+db.sqlite3
+# media/
+local_settings.py
+
+# VSCode / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# PyCharm
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Migrations cache (ixtiyoriy: ba'zida saqlanadi)
+*/migrations/__pycache__/
+*/migrations/*.pyc
