@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_4#8eih7(##y20p2o_6x8!f$bb7jj$s)v6koc!t9@+o=$j-t5n
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['95.130.227.102', '95.130.227.102:7777']
+ALLOWED_HOSTS = ['http://95.130.227.102', "http://localhost:8000"]
 CSRF_TRUSTED_ORIGINS = ['http://95.130.227.102:7777']
 
 # Application definition
@@ -54,6 +54,7 @@ INSTALLED_APPS += [
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -87,25 +88,26 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dms_db',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',   
-        'PORT': '5432',
+if DEBUG:
+    # LOCAL
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-
-
+else:
+    # SERVER (PostgreSQL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'dms_db',
+            'USER': 'postgres',
+            'PASSWORD': '123456',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -141,9 +143,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-from pathlib import Path
-
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 # STATIC
 STATIC_URL = '/static/'
@@ -168,6 +167,7 @@ REST_FRAMEWORK = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+
 SWAGGER_SETTINGS = {
     'SECURITY_DEFINITIONS': {
         'Bearer': {
@@ -175,12 +175,10 @@ SWAGGER_SETTINGS = {
             'name': 'Authorization',
             'in': 'header'
         }
-    }
-}
-
-SWAGGER_SETTINGS = {
+    },
     'DEFAULT_API_URL': 'http://95.130.227.102:7777',
 }
+
 
 
 from datetime import timedelta
