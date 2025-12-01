@@ -178,6 +178,10 @@ SWAGGER_SETTINGS = {
     }
 }
 
+SWAGGER_SETTINGS = {
+    'DEFAULT_API_URL': 'http://95.130.227.102:7777',
+}
+
 
 from datetime import timedelta
 
